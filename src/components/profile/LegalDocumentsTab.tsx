@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { FileText } from 'lucide-react';
+import { FileText, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface LegalDocumentsTabProps {
@@ -31,6 +31,11 @@ const LegalDocumentsTab: React.FC<LegalDocumentsTabProps> = ({
           </div>
           <div className="flex items-center gap-3">
             <span className="text-xs text-muted-foreground">Updated: May 10, 2025</span>
+            {legalDocumentsRead.termsOfService && (
+              <span className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-green-100 text-green-800">
+                <Eye className="h-3 w-3" /> Viewed
+              </span>
+            )}
             <Button 
               size="sm" 
               variant="outline"
@@ -52,6 +57,11 @@ const LegalDocumentsTab: React.FC<LegalDocumentsTabProps> = ({
           </div>
           <div className="flex items-center gap-3">
             <span className="text-xs text-muted-foreground">Updated: April 28, 2025</span>
+            {legalDocumentsRead.privacyPolicy && (
+              <span className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-green-100 text-green-800">
+                <Eye className="h-3 w-3" /> Viewed
+              </span>
+            )}
             <Button 
               size="sm" 
               variant="outline"

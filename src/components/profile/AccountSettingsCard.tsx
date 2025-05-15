@@ -1,11 +1,12 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { LogOut } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import LegalDocumentsTab from './LegalDocumentsTab';
 import SecurityTab from './SecurityTab';
+import LegalDocumentDialog from './LegalDocumentDialog';
 
 interface AccountSettingsCardProps {
   legalDocumentsRead: {
@@ -21,6 +22,13 @@ const AccountSettingsCard: React.FC<AccountSettingsCardProps> = ({
   handleViewDocument,
   handleLogout
 }) => {
+  const [openDocument, setOpenDocument] = useState<string | null>(null);
+  
+  const handleOpenDocument = (document: string) => {
+    setOpenDocument(document);
+    handleViewDocument(document);
+  };
+
   return (
     <Card className="md:col-span-3">
       <CardHeader>
@@ -37,7 +45,7 @@ const AccountSettingsCard: React.FC<AccountSettingsCardProps> = ({
           <TabsContent value="legal-documents">
             <LegalDocumentsTab 
               legalDocumentsRead={legalDocumentsRead} 
-              handleViewDocument={handleViewDocument} 
+              handleViewDocument={handleOpenDocument} 
             />
           </TabsContent>
 
@@ -52,6 +60,12 @@ const AccountSettingsCard: React.FC<AccountSettingsCardProps> = ({
           Logout
         </Button>
       </CardFooter>
+      
+      <LegalDocumentDialog 
+        isOpen={openDocument !== null}
+        onClose={() => setOpenDocument(null)}
+        documentType={openDocument || ''}
+      />
     </Card>
   );
 };
