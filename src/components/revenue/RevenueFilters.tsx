@@ -47,7 +47,6 @@ const washTypeOptions = [
   { id: "all", label: "All Wash Types" },
   { id: "express", label: "Express Wash" },
   { id: "standard", label: "Standard Wash" },
-  { id: "both", label: "Both" },
 ];
 
 const RevenueFilters: React.FC<RevenueFiltersProps> = ({

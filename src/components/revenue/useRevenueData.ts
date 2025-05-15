@@ -32,7 +32,6 @@ export const useRevenueData = () => {
       const washType = item.washType.toLowerCase();
       if (washTypeFilter === "express") return washType.includes("quick");
       if (washTypeFilter === "standard") return washType.includes("standard");
-      if (washTypeFilter === "both") return washType.includes("standard") && washType.includes("quick");
       return true;
     });
   };
