@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Box, CheckCircle, Truck, AlertTriangle, UserCheck } from 'lucide-react';
+import { Box, CheckCircle, Truck, AlertTriangle, UserCheck, PackageX } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 
 const OrderStatsCards: React.FC = () => {
@@ -80,6 +80,19 @@ const OrderStatsCards: React.FC = () => {
           </div>
           <div className="bg-red-500 rounded-full p-3">
             <AlertTriangle className="h-6 w-6 text-white" />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Cancelled Orders (New Tile) */}
+      <Card className="bg-pink-50 border-pink-100">
+        <CardContent className="p-6 flex items-start justify-between">
+          <div>
+            <p className="text-muted-foreground text-sm font-medium mb-2">Cancelled Orders</p>
+            <p className="text-4xl font-bold text-gray-900">3</p>
+          </div>
+          <div className="bg-pink-500 rounded-full p-3">
+            <PackageX className="h-6 w-6 text-white" />
           </div>
         </CardContent>
       </Card>
