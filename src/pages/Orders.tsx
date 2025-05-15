@@ -46,6 +46,50 @@ const Orders = () => {
   // Apply filters to orders
   const filteredOrders = filterOrders(orders);
   const filteredOrderHistory = filterOrderHistory();
+  
+  // Mock data for cancelled orders
+  const cancelledOrders = [
+    { 
+      orderId: '12350', 
+      customerName: 'Daniel Wilson', 
+      orderDate: '2025-05-10',
+      serviceType: 'Dry Cleaning',
+      washType: 'Standard', 
+      weightQuantity: '2 kg',
+      price: '$52.00',
+      cancelReason: 'Customer requested',
+      cancelDate: '2025-05-10' 
+    },
+    { 
+      orderId: '12351', 
+      customerName: 'Ava Martinez', 
+      orderDate: '2025-05-11',
+      serviceType: 'Wash & Fold',
+      washType: 'Quick', 
+      weightQuantity: '3.5 kg',
+      price: '$38.00',
+      cancelReason: 'Duplicate order',
+      cancelDate: '2025-05-12' 
+    },
+    { 
+      orderId: '12352', 
+      customerName: 'Noah Garcia', 
+      orderDate: '2025-05-12',
+      serviceType: 'Stain Removal',
+      washType: 'Premium', 
+      weightQuantity: '1 kg',
+      price: '$27.00',
+      cancelReason: 'Service unavailable',
+      cancelDate: '2025-05-13' 
+    },
+  ];
+
+  // Function to filter cancelled orders based on search query
+  const filteredCancelledOrders = cancelledOrders.filter(order => 
+    searchQuery === "" || 
+    order.orderId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    order.customerName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Navigate to order details
   const viewOrderDetails = (orderId: string) => {
@@ -174,6 +218,115 @@ const Orders = () => {
               orders={filteredOrderHistory} 
               viewOrderDetails={viewOrderDetails} 
             />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="cancelled">
+          <div className="rounded-lg overflow-hidden border-2 border-[#0F7EA3] bg-[#0F7EA3]">
+            <div className="flex flex-wrap p-2 bg-[#0F7EA3] rounded-t-lg overflow-x-auto">
+              <h3 className="text-white font-semibold px-4 py-2">Cancelled Orders</h3>
+            </div>
+            
+            <div className="hidden md:block">
+              <div className="overflow-x-auto bg-white">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-[#0F7EA3] border-none">
+                      <th className="text-white font-bold p-3 text-left">Order ID</th>
+                      <th className="text-white font-bold p-3 text-left">Customer</th>
+                      <th className="text-white font-bold p-3 text-left">Order date</th>
+                      <th className="text-white font-bold p-3 text-left">Weight/Quantity</th>
+                      <th className="text-white font-bold p-3 text-left">Wash Type</th>
+                      <th className="text-white font-bold p-3 text-left">Service Type</th>
+                      <th className="text-white font-bold p-3 text-left">Price</th>
+                      <th className="text-white font-bold p-3 text-left">Cancel Reason</th>
+                      <th className="text-white font-bold p-3 text-left">Cancel Date</th>
+                      <th className="text-white font-bold p-3 text-left">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredCancelledOrders.length > 0 ? (
+                      filteredCancelledOrders.map((order, index) => (
+                        <tr key={order.orderId} className={index % 2 === 0 ? 'bg-[#E6EFF2]' : 'bg-[#F8FBFC]'}>
+                          <td className="p-3">{order.orderId}</td>
+                          <td className="p-3">{order.customerName}</td>
+                          <td className="p-3">{order.orderDate}</td>
+                          <td className="p-3">{order.weightQuantity}</td>
+                          <td className="p-3">{order.washType}</td>
+                          <td className="p-3">{order.serviceType}</td>
+                          <td className="p-3">{order.price}</td>
+                          <td className="p-3">
+                            <span className="px-2 py-1 rounded-full text-xs bg-red-100 text-red-800">
+                              {order.cancelReason}
+                            </span>
+                          </td>
+                          <td className="p-3">{order.cancelDate}</td>
+                          <td className="p-3">
+                            <Button 
+                              variant="outline" 
+                              className="rounded-full bg-black text-white w-8 h-8 p-0"
+                              onClick={() => viewOrderDetails(order.orderId)}
+                            >
+                              <span className="sr-only">View details</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                              </svg>
+                            </Button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={10} className="text-center py-8">
+                          <p className="text-gray-500">No cancelled orders found</p>
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <div className="md:hidden bg-white p-3">
+              {filteredCancelledOrders.length > 0 ? (
+                filteredCancelledOrders.map((order) => (
+                  <div key={order.orderId} className="mb-4 p-3 bg-white rounded-lg border shadow-sm">
+                    <div className="flex justify-between mb-2">
+                      <span className="font-bold">Order ID: {order.orderId}</span>
+                      <Button 
+                        variant="outline" 
+                        className="h-6 w-6 p-0 rounded-full"
+                        onClick={() => viewOrderDetails(order.orderId)}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="12" y1="16" x2="12" y2="12"></line>
+                          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                      </Button>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>Customer: <span className="font-medium">{order.customerName}</span></div>
+                      <div>Date: <span className="font-medium">{order.orderDate}</span></div>
+                      <div>Service: <span className="font-medium">{order.serviceType}</span></div>
+                      <div>Price: <span className="font-medium">{order.price}</span></div>
+                      <div>Cancel Reason: 
+                        <span className="ml-1 px-2 py-0.5 rounded-full text-xs bg-red-100 text-red-800">
+                          {order.cancelReason}
+                        </span>
+                      </div>
+                      <div>Cancel Date: <span className="font-medium">{order.cancelDate}</span></div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-500">No cancelled orders found</p>
+                </div>
+              )}
+            </div>
           </div>
         </TabsContent>
       </OrderTabs>

@@ -26,6 +26,13 @@ const OrderTabs: React.FC<OrderTabsProps> = ({ activeTab, setActiveTab, children
         >
           Orders history
         </TabsTrigger>
+        <TabsTrigger 
+          value="cancelled"
+          className={`flex-1 py-3 rounded-md ${activeTab === 'cancelled' ? 'bg-[#0F7EA3] text-white shadow-md' : 'bg-white border-2'}`}
+          style={{ boxShadow: activeTab === 'cancelled' ? '0 4px 6px rgba(0, 0, 0, 0.2)' : 'none' }}
+        >
+          Cancelled orders
+        </TabsTrigger>
       </TabsList>
       {children}
     </Tabs>
