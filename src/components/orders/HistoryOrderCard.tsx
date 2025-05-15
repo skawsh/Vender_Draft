@@ -21,6 +21,7 @@ const HistoryOrderCard: React.FC<HistoryOrderCardProps> = ({ order, viewOrderDet
 
   const handleViewDetails = () => {
     setDialogOpen(true);
+    viewOrderDetails(order.orderId);
   };
 
   return (

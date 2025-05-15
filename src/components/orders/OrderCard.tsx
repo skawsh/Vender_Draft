@@ -23,6 +23,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, index, getActionButton, vi
 
   const handleViewDetails = () => {
     setDialogOpen(true);
+    viewOrderDetails(order.orderId);
   };
 
   return (
