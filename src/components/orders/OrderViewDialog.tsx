@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { toast } from "@/components/ui/use-toast";
 
 interface OrderViewDialogProps {
   isOpen: boolean;
@@ -19,6 +20,10 @@ const OrderViewDialog: React.FC<OrderViewDialogProps> = ({ isOpen, onClose }) =>
 
   const handleNavigateToRevenue = () => {
     navigate("/revenue");
+    toast({
+      title: "Navigating to Revenue",
+      description: "Taking you to the order details section"
+    });
     onClose();
   };
 
