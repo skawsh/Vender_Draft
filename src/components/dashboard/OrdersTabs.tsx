@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ShoppingBag, AlertTriangle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -64,9 +64,11 @@ const cancelledOrders = [
 ];
 
 const OrdersTabs: React.FC = () => {
+  const [activeTab, setActiveTab] = useState("recent");
+  
   return (
-    <Tabs defaultValue="recent" className="w-full">
-      <TabsList className="w-full sm:w-auto">
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <TabsList className="grid grid-cols-2 w-full md:w-auto">
         <TabsTrigger value="recent" className="flex items-center gap-2">
           <ShoppingBag className="h-4 w-4" />
           Recent Orders

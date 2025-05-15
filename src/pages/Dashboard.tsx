@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState("All Orders");
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in p-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground">Overview of your laundry business performance</p>
@@ -32,8 +32,11 @@ const Dashboard: React.FC = () => {
       {/* Ongoing Orders */}
       <OngoingOrders />
 
-      {/* Orders Tabs */}
-      <OrdersTabs />
+      {/* Orders Tabs - Recent Orders and Cancelled Orders */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Order History</h2>
+        <OrdersTabs />
+      </div>
 
       {/* Orders Summary Grid */}
       <OrdersSummary />
