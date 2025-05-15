@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Info } from "lucide-react";
@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import OrderViewDialog from './OrderViewDialog';
 
 interface HistoryOrderCardProps {
   order: any;
@@ -16,6 +17,13 @@ interface HistoryOrderCardProps {
 }
 
 const HistoryOrderCard: React.FC<HistoryOrderCardProps> = ({ order, viewOrderDetails }) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleViewDetails = (orderId: string) => {
+    setDialogOpen(true);
+    viewOrderDetails(orderId);
+  };
+
   return (
     <Card className="mb-3">
       <CardHeader className="pb-2 pt-3 px-3">
@@ -63,7 +71,7 @@ const HistoryOrderCard: React.FC<HistoryOrderCardProps> = ({ order, viewOrderDet
                 <Button 
                   variant="outline" 
                   className="rounded-full bg-black text-white w-8 h-8 p-0"
-                  onClick={() => viewOrderDetails(order.orderId)}
+                  onClick={() => handleViewDetails(order.orderId)}
                 >
                   <Info className="h-4 w-4" />
                 </Button>
@@ -75,6 +83,10 @@ const HistoryOrderCard: React.FC<HistoryOrderCardProps> = ({ order, viewOrderDet
           </TooltipProvider>
         </div>
       </CardContent>
+      <OrderViewDialog 
+        isOpen={dialogOpen} 
+        onClose={() => setDialogOpen(false)} 
+      />
     </Card>
   );
 };

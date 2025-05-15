@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Info } from "lucide-react";
@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import OrderViewDialog from './OrderViewDialog';
 
 interface OrdersTableProps {
   orders: any[];
@@ -17,6 +18,16 @@ interface OrdersTableProps {
 }
 
 const OrdersTable: React.FC<OrdersTableProps> = ({ orders, getActionButton, viewOrderDetails }) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+  
+  const handleViewDetails = (orderId: string) => {
+    setSelectedOrderId(orderId);
+    setDialogOpen(true);
+    // Still call the original function for any side effects it might have
+    viewOrderDetails(orderId);
+  };
+
   return (
     <div className="hidden md:block">
       <div className="overflow-x-auto bg-white">
@@ -54,7 +65,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders, getActionButton, view
                           <Button 
                             variant="outline" 
                             className="rounded-full bg-black text-white w-8 h-8 p-0"
-                            onClick={() => viewOrderDetails(order.orderId)}
+                            onClick={() => handleViewDetails(order.orderId)}
                           >
                             <Info className="h-4 w-4" />
                           </Button>
@@ -77,6 +88,10 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders, getActionButton, view
           </TableBody>
         </Table>
       </div>
+      <OrderViewDialog 
+        isOpen={dialogOpen} 
+        onClose={() => setDialogOpen(false)} 
+      />
     </div>
   );
 };
