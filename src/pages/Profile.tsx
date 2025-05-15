@@ -82,7 +82,6 @@ const Profile = () => {
   const [legalDocumentsRead, setLegalDocumentsRead] = useState({
     termsOfService: false,
     privacyPolicy: false,
-    dataProcessingAgreement: false
   });
 
   const handleInputChange = e => {
@@ -162,12 +161,12 @@ const Profile = () => {
     }));
   };
 
-  const handleDocumentRead = (document) => {
+  const handleViewDocument = (document) => {
     setLegalDocumentsRead(prev => ({
       ...prev,
       [document]: !prev[document]
     }));
-    toast.success(`${document.charAt(0).toUpperCase() + document.slice(1).replace(/([A-Z])/g, ' $1')} marked as ${!legalDocumentsRead[document] ? 'read' : 'unread'}`);
+    toast.success(`Viewing ${document.charAt(0).toUpperCase() + document.slice(1).replace(/([A-Z])/g, ' $1')}`);
   };
 
   return <div className="container mx-auto p-4 md:p-6">
@@ -541,10 +540,10 @@ const Profile = () => {
                       <span className="text-xs text-muted-foreground">Updated: May 10, 2025</span>
                       <Button 
                         size="sm" 
-                        variant={legalDocumentsRead.termsOfService ? "outline" : "default"}
-                        onClick={() => handleDocumentRead('termsOfService')}
+                        variant="outline"
+                        onClick={() => handleViewDocument('termsOfService')}
                       >
-                        {legalDocumentsRead.termsOfService ? "Mark Unread" : "Mark Read"}
+                        View
                       </Button>
                     </div>
                   </div>
@@ -562,31 +561,10 @@ const Profile = () => {
                       <span className="text-xs text-muted-foreground">Updated: April 28, 2025</span>
                       <Button 
                         size="sm" 
-                        variant={legalDocumentsRead.privacyPolicy ? "outline" : "default"}
-                        onClick={() => handleDocumentRead('privacyPolicy')}
+                        variant="outline"
+                        onClick={() => handleViewDocument('privacyPolicy')}
                       >
-                        {legalDocumentsRead.privacyPolicy ? "Mark Unread" : "Mark Read"}
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between rounded-lg border p-4">
-                    <div className="space-y-0.5 flex items-center gap-3">
-                      <FileText className="h-5 w-5 text-primary" />
-                      <div>
-                        <h4 className="font-medium">Data Processing Agreement</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Legal framework for processing customer data
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs text-muted-foreground">Updated: May 05, 2025</span>
-                      <Button 
-                        size="sm" 
-                        variant={legalDocumentsRead.dataProcessingAgreement ? "outline" : "default"}
-                        onClick={() => handleDocumentRead('dataProcessingAgreement')}
-                      >
-                        {legalDocumentsRead.dataProcessingAgreement ? "Mark Unread" : "Mark Read"}
+                        View
                       </Button>
                     </div>
                   </div>
