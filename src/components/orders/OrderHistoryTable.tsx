@@ -18,10 +18,8 @@ interface OrderHistoryTableProps {
 
 const OrderHistoryTable: React.FC<OrderHistoryTableProps> = ({ orders, viewOrderDetails }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   
   const handleViewDetails = (orderId: string) => {
-    setSelectedOrderId(orderId);
     setDialogOpen(true);
     viewOrderDetails(orderId);
   };

@@ -19,12 +19,9 @@ interface OrdersTableProps {
 
 const OrdersTable: React.FC<OrdersTableProps> = ({ orders, getActionButton, viewOrderDetails }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   
   const handleViewDetails = (orderId: string) => {
-    setSelectedOrderId(orderId);
     setDialogOpen(true);
-    // Still call the original function for any side effects it might have
     viewOrderDetails(orderId);
   };
 
