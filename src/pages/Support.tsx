@@ -3,7 +3,6 @@ import React from 'react';
 import { HelpCircle, Phone, Mail, Clock, ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 
 const Support = () => {
@@ -17,7 +16,7 @@ const Support = () => {
         <p className="text-muted-foreground">Get help and assistance with your laundry studio</p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Phone Support Section */}
         <Card>
           <CardHeader>
@@ -131,47 +130,6 @@ const Support = () => {
           </CardFooter>
         </Card>
       </div>
-
-      {/* FAQ Section */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Frequently Asked Questions</CardTitle>
-          <CardDescription>
-            Quick answers to common questions about our laundry services
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <h3 className="font-medium">How do I track my order status?</h3>
-            <p className="text-sm text-muted-foreground">
-              You can track your order status by logging into your account and visiting the 'Orders' section.
-              There you can view real-time updates on the progress of your laundry.
-            </p>
-          </div>
-          <Separator />
-          <div className="space-y-2">
-            <h3 className="font-medium">What are your service charges?</h3>
-            <p className="text-sm text-muted-foreground">
-              Our service charges vary depending on the type of laundry, weight, and service level (Quick or Standard).
-              You can find our full pricing details in the 'Services' section.
-            </p>
-          </div>
-          <Separator />
-          <div className="space-y-2">
-            <h3 className="font-medium">How do I schedule a pickup or delivery?</h3>
-            <p className="text-sm text-muted-foreground">
-              You can schedule a pickup or delivery through the 'Orders' section. Select your preferred date and time slot,
-              and our delivery personnel will arrive within the selected timeframe.
-            </p>
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Button variant="outline" className="gap-2">
-            <ExternalLink className="h-4 w-4" />
-            View All FAQs
-          </Button>
-        </CardFooter>
-      </Card>
     </div>
   );
 };
