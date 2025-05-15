@@ -21,9 +21,8 @@ interface OrderCardProps {
 const OrderCard: React.FC<OrderCardProps> = ({ order, index, getActionButton, viewOrderDetails }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const handleViewDetails = (orderId: string) => {
+  const handleViewDetails = () => {
     setDialogOpen(true);
-    viewOrderDetails(orderId);
   };
 
   return (
@@ -66,7 +65,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, index, getActionButton, vi
                 <Button 
                   variant="outline" 
                   className="rounded-full bg-black text-white w-8 h-8 p-0"
-                  onClick={() => handleViewDetails(order.orderId)}
+                  onClick={handleViewDetails}
                 >
                   <Info className="h-4 w-4" />
                 </Button>

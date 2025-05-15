@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/tooltip";
 import { NotificationsDropdown } from '@/components/NotificationsDropdown';
 import OrderFilterDropdown from '@/components/OrderFilterDropdown';
+import OrderViewDialog from '@/components/orders/OrderViewDialog';
 
 const initialCurrentOrders = [
   {
@@ -141,6 +142,8 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("new");
   const [selectedDateFilter, setSelectedDateFilter] = useState<string | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState("");
   const [driverAssignments, setDriverAssignments] = useState([
     {
       id: 1,
@@ -192,7 +195,8 @@ const Index = () => {
   }, []);
 
   const handleViewOrderDetails = (orderId: string) => {
-    navigate(`/order/${orderId}`);
+    setSelectedOrderId(orderId);
+    setDialogOpen(true);
   };
 
   const handleMarkReceived = (orderId: string) => {
@@ -826,9 +830,13 @@ const Index = () => {
           </CardContent>
         </Card>
       </div>
+      
+      <OrderViewDialog 
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+      />
     </div>
   );
 };
 
 export default Index;
-

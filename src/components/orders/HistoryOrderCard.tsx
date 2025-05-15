@@ -19,9 +19,8 @@ interface HistoryOrderCardProps {
 const HistoryOrderCard: React.FC<HistoryOrderCardProps> = ({ order, viewOrderDetails }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const handleViewDetails = (orderId: string) => {
+  const handleViewDetails = () => {
     setDialogOpen(true);
-    viewOrderDetails(orderId);
   };
 
   return (
@@ -71,7 +70,7 @@ const HistoryOrderCard: React.FC<HistoryOrderCardProps> = ({ order, viewOrderDet
                 <Button 
                   variant="outline" 
                   className="rounded-full bg-black text-white w-8 h-8 p-0"
-                  onClick={() => handleViewDetails(order.orderId)}
+                  onClick={handleViewDetails}
                 >
                   <Info className="h-4 w-4" />
                 </Button>
