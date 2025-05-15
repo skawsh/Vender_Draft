@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserCircle, Mail, Phone, MapPin, Building, Calendar, Save, Edit2, User, LogOut, Pencil, X, ChevronDown, ChevronRight, Building2, Store, CreditCard } from 'lucide-react';
+import { UserCircle, Mail, Phone, MapPin, Building, Calendar, Save, Edit2, User, LogOut, Pencil, X, ChevronDown, ChevronRight, Building2, Store, CreditCard, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -79,6 +79,12 @@ const Profile = () => {
     'payment': false
   });
 
+  const [legalDocumentsRead, setLegalDocumentsRead] = useState({
+    termsOfService: false,
+    privacyPolicy: false,
+    dataProcessingAgreement: false
+  });
+
   const handleInputChange = e => {
     const {
       name,
@@ -154,6 +160,14 @@ const Profile = () => {
       ...prev,
       [section]: !prev[section]
     }));
+  };
+
+  const handleDocumentRead = (document) => {
+    setLegalDocumentsRead(prev => ({
+      ...prev,
+      [document]: !prev[document]
+    }));
+    toast.success(`${document.charAt(0).toUpperCase() + document.slice(1).replace(/([A-Z])/g, ' $1')} marked as ${!legalDocumentsRead[document] ? 'read' : 'unread'}`);
   };
 
   return <div className="container mx-auto p-4 md:p-6">
@@ -504,46 +518,76 @@ const Profile = () => {
             <CardDescription>Manage your account preferences and settings</CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="notifications" className="w-full">
+            <Tabs defaultValue="legal-documents" className="w-full">
               <TabsList>
-                <TabsTrigger value="notifications">Notifications</TabsTrigger>
+                <TabsTrigger value="legal-documents">Legal Documents</TabsTrigger>
                 <TabsTrigger value="security">Security</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="notifications" className="space-y-4 mt-4">
-                <h3 className="text-lg font-medium">Notification Preferences</h3>
+              <TabsContent value="legal-documents" className="space-y-4 mt-4">
+                <h3 className="text-lg font-medium">Legal Documents</h3>
                 <div className="grid gap-2">
                   <div className="flex items-center justify-between rounded-lg border p-4">
-                    <div className="space-y-0.5">
-                      <h4 className="font-medium">Order Updates</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Receive notifications when order status changes
-                      </p>
+                    <div className="space-y-0.5 flex items-center gap-3">
+                      <FileText className="h-5 w-5 text-primary" />
+                      <div>
+                        <h4 className="font-medium">Terms of Service</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Our terms and conditions for using Skawsh Laundry
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <input type="checkbox" id="order-updates" defaultChecked={true} className="h-4 w-4 rounded border-gray-300" />
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs text-muted-foreground">Updated: May 10, 2025</span>
+                      <Button 
+                        size="sm" 
+                        variant={legalDocumentsRead.termsOfService ? "outline" : "default"}
+                        onClick={() => handleDocumentRead('termsOfService')}
+                      >
+                        {legalDocumentsRead.termsOfService ? "Mark Unread" : "Mark Read"}
+                      </Button>
                     </div>
                   </div>
                   <div className="flex items-center justify-between rounded-lg border p-4">
-                    <div className="space-y-0.5">
-                      <h4 className="font-medium">Customer Messages</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Receive notifications for new customer inquiries
-                      </p>
+                    <div className="space-y-0.5 flex items-center gap-3">
+                      <FileText className="h-5 w-5 text-primary" />
+                      <div>
+                        <h4 className="font-medium">Privacy Policy</h4>
+                        <p className="text-sm text-muted-foreground">
+                          How we collect, use, and protect your data
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <input type="checkbox" id="customer-messages" defaultChecked={true} className="h-4 w-4 rounded border-gray-300" />
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs text-muted-foreground">Updated: April 28, 2025</span>
+                      <Button 
+                        size="sm" 
+                        variant={legalDocumentsRead.privacyPolicy ? "outline" : "default"}
+                        onClick={() => handleDocumentRead('privacyPolicy')}
+                      >
+                        {legalDocumentsRead.privacyPolicy ? "Mark Unread" : "Mark Read"}
+                      </Button>
                     </div>
                   </div>
                   <div className="flex items-center justify-between rounded-lg border p-4">
-                    <div className="space-y-0.5">
-                      <h4 className="font-medium">Marketing Updates</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Receive promotional offers and news
-                      </p>
+                    <div className="space-y-0.5 flex items-center gap-3">
+                      <FileText className="h-5 w-5 text-primary" />
+                      <div>
+                        <h4 className="font-medium">Data Processing Agreement</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Legal framework for processing customer data
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <input type="checkbox" id="marketing" defaultChecked={false} className="h-4 w-4 rounded border-gray-300" />
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs text-muted-foreground">Updated: May 05, 2025</span>
+                      <Button 
+                        size="sm" 
+                        variant={legalDocumentsRead.dataProcessingAgreement ? "outline" : "default"}
+                        onClick={() => handleDocumentRead('dataProcessingAgreement')}
+                      >
+                        {legalDocumentsRead.dataProcessingAgreement ? "Mark Unread" : "Mark Read"}
+                      </Button>
                     </div>
                   </div>
                 </div>
