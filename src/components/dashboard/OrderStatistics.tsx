@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Database, ShoppingBag, Inbox, RotateCw, PackageCheck } from 'lucide-react';
-import { OrderFilterDropdown } from '@/components/OrderFilterDropdown';
+import OrderFilterDropdown from '@/components/OrderFilterDropdown';
 
 interface OrderStatisticsProps {
   handleFilterChange: (filterType: string, value?: any) => void;

@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import OngoingOrders from './OngoingOrders';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from "@/lib/utils";
@@ -18,7 +18,7 @@ interface DashboardTabsProps {
   setActiveFilter: (filter: string) => void;
   filteredOrders: any[];
   currentOrders: any[];
-  getActionButton: (order: any) => JSX.Element | null;
+  getActionButton: (order: any) => React.ReactElement | null;
   handleViewOrderDetails: (orderId: string) => void;
 }
 
@@ -32,7 +32,7 @@ const DashboardTabs: React.FC<DashboardTabsProps> = ({
 }) => {
   return (
     <div className="bg-white dark:bg-card rounded-xl border shadow-sm overflow-hidden mb-6">
-      <Tabs defaultValue="current-orders" className="w-full">
+      <Tabs defaultValue={activeFilter} onValueChange={setActiveFilter} className="w-full">
         <div className="flex border-b overflow-x-auto">
           <TabsList className="h-auto p-0 bg-transparent">
             <TabsTrigger 

@@ -48,7 +48,7 @@ const Index = () => {
         setActiveFilter={setActiveFilter}
         filteredOrders={filteredOrders}
         currentOrders={currentOrders}
-        getActionButton={getActionButton}
+        getActionButton={(order) => getActionButton(order) as React.ReactElement}
         handleViewOrderDetails={handleViewOrderDetails}
       />
       
