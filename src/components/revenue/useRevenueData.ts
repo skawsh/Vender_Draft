@@ -20,6 +20,7 @@ export const useRevenueData = () => {
   const [activeTab, setActiveTab] = useState("pending");
   const [dateFilter, setDateFilter] = useState("all");
   const [washTypeFilter, setWashTypeFilter] = useState("all");
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   
   const [pendingPaymentsData, setPendingPaymentsData] = useState(thisWeekPendingPayments);
   const [paymentHistoryData, setPaymentHistoryData] = useState(thisWeekPaymentHistory);
@@ -52,6 +53,21 @@ export const useRevenueData = () => {
       payment.orderId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       payment.customerName.toLowerCase().includes(searchQuery.toLowerCase())
     );
+  };
+
+  const viewOrderDetails = (orderId: string) => {
+    setSelectedOrderId(orderId);
+    
+    // Find the order in either pending payments or payment history
+    const order = [...pendingPaymentsData, ...paymentHistoryData].find(
+      order => order.orderId === orderId
+    );
+    
+    if (order) {
+      toast.info(`Viewing details for order ${orderId}`, {
+        description: `${order.customerName}'s ${order.washType} order`
+      });
+    }
   };
 
   useEffect(() => {
@@ -149,10 +165,13 @@ export const useRevenueData = () => {
     setDateFilter,
     washTypeFilter,
     setWashTypeFilter,
+    selectedOrderId,
+    setSelectedOrderId,
     pendingPaymentsData,
     paymentHistoryData,
     revenueSummary,
     getFilteredPendingPayments,
-    getFilteredPaymentHistory
+    getFilteredPaymentHistory,
+    viewOrderDetails
   };
 };

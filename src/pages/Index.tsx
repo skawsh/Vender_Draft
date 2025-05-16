@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/tooltip";
 import { NotificationsDropdown } from '@/components/NotificationsDropdown';
 import OrderFilterDropdown from '@/components/OrderFilterDropdown';
-import OrderViewDialog from '@/components/orders/OrderViewDialog';
+import OrderDetailsDialog from '@/components/orders/OrderDetailsDialog';
 
 const initialCurrentOrders = [
   {
@@ -831,9 +831,11 @@ const Index = () => {
         </Card>
       </div>
       
-      <OrderViewDialog 
+      {/* Replace OrderViewDialog with OrderDetailsDialog */}
+      <OrderDetailsDialog 
         isOpen={dialogOpen}
         onClose={() => setDialogOpen(false)}
+        orderId={selectedOrderId}
       />
     </div>
   );

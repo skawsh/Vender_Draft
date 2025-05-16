@@ -17,10 +17,13 @@ import OrderHistoryTable from '@/components/orders/OrderHistoryTable';
 import OrderTabs from '@/components/orders/OrderTabs';
 import { useOrderActions } from '@/hooks/useOrderActions';
 import { useOrderFilters } from '@/hooks/useOrderFilters';
+import OrderDetailsDialog from '@/components/orders/OrderDetailsDialog';
 
 const Orders = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("current");
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState("");
   
   // Custom hooks
   const { orders, getActionButton } = useOrderActions();
@@ -93,7 +96,8 @@ const Orders = () => {
 
   // Navigate to order details
   const viewOrderDetails = (orderId: string) => {
-    navigate(`/order/${orderId}`);
+    setSelectedOrderId(orderId);
+    setDialogOpen(true);
   };
 
   // Render action button with tooltip
@@ -330,6 +334,13 @@ const Orders = () => {
           </div>
         </TabsContent>
       </OrderTabs>
+
+      {/* Order Details Dialog */}
+      <OrderDetailsDialog 
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        orderId={selectedOrderId}
+      />
     </div>
   );
 };
