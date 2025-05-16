@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Database, ShoppingBag, Inbox, RotateCw, PackageCheck } from 'lucide-react';
+import { Database, ShoppingBag, Inbox, RotateCw, PackageCheck, X } from 'lucide-react';
 import OrderFilterDropdown from '@/components/OrderFilterDropdown';
 
 interface OrderStatisticsProps {
@@ -17,7 +17,7 @@ const OrderStatistics: React.FC<OrderStatisticsProps> = ({ handleFilterChange })
           <OrderFilterDropdown onFilterChange={handleFilterChange} />
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
         <Card className="card-stats bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">All Orders</CardTitle>
@@ -74,6 +74,19 @@ const OrderStatistics: React.FC<OrderStatisticsProps> = ({ handleFilterChange })
             <div className="text-2xl font-bold">5</div>
             <div className="absolute right-4 top-4 p-2 bg-white/80 rounded-full text-green-500">
               <PackageCheck size={20} />
+            </div>
+          </CardContent>
+        </Card>
+        
+        {/* New Cancelled Today Tile */}
+        <Card className="card-stats bg-gradient-to-br from-red-50 to-red-100 border-red-200">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Cancelled Today</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">3</div>
+            <div className="absolute right-4 top-4 p-2 bg-white/80 rounded-full text-red-500">
+              <X size={20} />
             </div>
           </CardContent>
         </Card>
