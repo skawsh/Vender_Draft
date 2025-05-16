@@ -1,6 +1,6 @@
-
 import { useState, useEffect } from 'react';
 import { toast } from "sonner";
+import React from 'react';
 
 // Initial orders data
 const initialCurrentOrders = [
@@ -275,7 +275,7 @@ export const useDashboard = () => {
         return true;
       });
 
-  const getActionButton = (order: any) => {
+  const getActionButton = (order: any): React.ReactNode => {
     switch(order.status) {
       case "New Orders":
         return (
